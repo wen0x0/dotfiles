@@ -12,6 +12,7 @@ alias gcan='git commit --amend --no-edit'
 alias gm='git merge'
 alias gmt='git mergetool'
 alias grb='git rebase'
+alias grm='git rm'
 
 # Branching
 alias gb='git branch'
