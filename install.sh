@@ -21,9 +21,13 @@ done
 
 mkdir -p "$DOTFILES_DIR"
 
-for dir in docker git helm kubectl; do
-  mkdir -p "$DOTFILES_DIR/$dir"
-  cp "$REPO_DIR/$dir/aliases.sh" "$DOTFILES_DIR/$dir/aliases.sh"
+for file in "$REPO_DIR"/*/aliases.sh; do
+    [ -f "$file" ] || continue
+
+    dir="$(basename "$(dirname "$file")")"
+
+    mkdir -p "$DOTFILES_DIR/$dir"
+    cp "$file" "$DOTFILES_DIR/$dir/"
 done
 
 mkdir -p "$DOTFILES_DIR/tmux"
@@ -70,5 +74,5 @@ done
 EOF
 fi
 
-echo "Installed dotfiles."
-echo "Run: source ~/.bashrc"
+echo "Installed dotfiles into ~/.config/"
+echo -e "Run:\nsource ~/.bashrc"

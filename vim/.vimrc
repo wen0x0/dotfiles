@@ -121,15 +121,15 @@ nnoremap <C-n> :set invnumber invrelativenumber<CR>
 " <Leader>h: Toggle search highlighting.
 nnoremap <leader>h :set hlsearch!<CR>
 
-
 " =============================================================================
 " Plugins (vim-plug)
 " =============================================================================
 
 " Plugins installed with vim-plug are stored in ~/.vim/plugged.
-call plug#begin(~/.vim/plugged)
+if filereadable(expand('~/.vim/autoload/plug.vim'))
+	call plug#begin('~/.vim/plugged')
+		
+		" Plug 'author/plugin-name'
 
-" Add plugins here, for example:
-" Plug 'author/plugin-name'
-
-call plug#end()
+	call plug#end()
+endif
