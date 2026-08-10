@@ -18,18 +18,14 @@ alias gcan='git commit --amend --no-edit'
 alias gb='git branch'
 alias gba='git branch -a'
 alias gco='git checkout'
-alias gcb='git checkout -b'
 alias gsw='git switch'
-alias gswc='git switch -c'
 
 # Logs
 alias gl='git log'
-alias glo='git log --oneline --graph --decorate --all'
-alias glp='git log -p'
+alias glo='git log --oneline --graph --decorate'
 
 # Remote
-alias gp='git push'
-alias gpf='git push --force-with-lease'
+alias gps='git push'
 alias gpl='git pull'
 alias gf='git fetch'
 
@@ -40,14 +36,11 @@ alias gds='git diff --staged'
 # Reset / cleanup
 alias gr='git reset'
 alias grh='git reset --hard'
-alias gclean='git clean -fd'
+alias grs='git reset --soft'
+alias gclean='git clean'
 
 # Stash
 alias gst='git stash'
 alias gstp='git stash pop'
 alias gstd='git stash drop'
 alias gstl='git stash list'
-
-# Status + quick workflow combo
-alias gss='git status -sb'
-alias gac='git add . && git commit'
