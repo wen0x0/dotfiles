@@ -9,6 +9,9 @@ alias gc='git commit'
 alias gcm='git commit -m'
 alias gca='git commit --amend'
 alias gcan='git commit --amend --no-edit'
+alias gm='git merge'
+alias gmt='git mergetool'
+alias grb='git rebase'
 
 # Branching
 alias gb='git branch'
