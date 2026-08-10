@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+# Config
+git config --global merge.tool vimdiff3
+git config --global mergetool.prompt false
+
 # Basic shortcuts
 alias g='git'
 alias gs='git status'
