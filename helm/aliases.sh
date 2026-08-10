@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Core Helm
+# Core
 alias h='helm'
 alias hi='helm install'
 alias hu='helm upgrade'
