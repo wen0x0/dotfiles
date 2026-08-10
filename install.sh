@@ -14,8 +14,11 @@ done
 mkdir -p "$DOTFILES_DIR/tmux"
 cp "$REPO_DIR/tmux/.tmux.conf" "$DOTFILES_DIR/tmux/.tmux.conf"
 
-# tmux config symlink
+mkdir -p "$DOTFILES_DIR/vim"
+cp "$REPO_DIR/vim/.vimrc" "$DOTFILES_DIR/vim/.vimrc"
+
 ln -sf "$DOTFILES_DIR/tmux/.tmux.conf" "$HOME/.tmux.conf"
+ln -sf "$DOTFILES_DIR/vim/.vimrc" "$HOME/.vimrc"
 
 BASHRC="$HOME/.bashrc"
 BLOCK_START="# >>> dotfiles aliases >>>"
