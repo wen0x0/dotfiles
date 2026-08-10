@@ -1,9 +1,5 @@
 #!/usr/bin/env bash
 
-# =========================
-# Git Aliases - Productivity Boost
-# =========================
-
 # Basic shortcuts
 alias g='git'
 alias gs='git status'
