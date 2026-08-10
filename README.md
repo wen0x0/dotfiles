@@ -258,3 +258,11 @@ curl
 
 Vim and tmux are only required if their respective configurations are going to be used.
 
+## Notes
+You need to run the fzf binary first to check if it already installed after PlugInstall in Vim.
+```
+whereis fzf
+fzf --version
+```
+If don't see any, check the `~/.vim/plugged/fzf` to run the install script then apply the `install.sh` again.
+
