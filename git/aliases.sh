@@ -48,3 +48,11 @@ alias gst='git stash'
 alias gstp='git stash pop'
 alias gstd='git stash drop'
 alias gstl='git stash list'
+
+
+# Tags
+alias gt='git tag'
+alias gta='git tag -a'
+alias gtl='git tag --list'
+alias gtd='git tag -d'
+alias gtlsf="git tag --list --sort=-creatordate --format='%(creatordate:short) -> %(refname:short)'"
