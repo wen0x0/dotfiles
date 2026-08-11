@@ -40,4 +40,5 @@ ksd() {
 
 # YAML output 
 alias kgy='kubectl get -o yaml'
+alias kgj='kubectl get -o json'
 alias kgw='kubectl get -o wide'
