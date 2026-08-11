@@ -30,6 +30,14 @@ alias kdn='kubectl describe node'
 # Events 
 alias kge='kubectl get events --sort-by=.metadata.creationTimestamp'
 
+# Secrets
+alias kgsec='kubectl get secrets'
+alias kdsec='kubectl describe secret'
+ksd() {
+  kubectl get secret "$1" -o jsonpath="{.data.$2}" | base64 -d
+  echo
+}
+
 # YAML output 
 alias kgy='kubectl get -o yaml'
 alias kgw='kubectl get -o wide'
