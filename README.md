@@ -1,8 +1,8 @@
 # Dotfiles
 
-Personal dotfiles and shell configurations for quickly setting up a Linux environment.
+Personal Linux dotfiles for quickly setting up my shell environment.
 
-The repository contains shell aliases and configuration files for tools I commonly use, including:
+Includes configurations and aliases for:
 
 * Docker
 * Git
@@ -11,116 +11,63 @@ The repository contains shell aliases and configuration files for tools I common
 * tmux
 * Vim
 
-The included `install.sh` script installs the configurations into `~/.config/dotfiles` and creates the required symlinks.
-
-## Repository Structure
+## Structure
 
 ```text
 dotfiles/
-├── docker/
-│   └── aliases.sh
-├── git/
-│   └── aliases.sh
-├── helm/
-│   └── aliases.sh
-├── kubectl/
-│   └── aliases.sh
-├── tmux/
-│   └── .tmux.conf
-├── vim/
-│   └── .vimrc
+├── docker/aliases.sh
+├── git/aliases.sh
+├── helm/aliases.sh
+├── kubectl/aliases.sh
+├── tmux/.tmux.conf
+├── vim/.vimrc
 ├── install.sh
 └── README.md
 ```
 
 ## Installation
 
-Clone the repository:
+Clone the repository and run the installer:
 
 ```bash
 git clone <repository-url>
 cd dotfiles
-```
 
-Make the installer executable if necessary:
-
-```bash
 chmod +x install.sh
-```
-
-Then run:
-
-```bash
 ./install.sh
 ```
 
-After installation, reload the shell configuration:
+Then reload the shell:
 
 ```bash
 source ~/.bashrc
 ```
 
-### Install with vim-plug
-
-The Vim configuration supports plugins managed by [vim-plug](https://github.com/junegunn/vim-plug).
-
-To install the dotfiles together with vim-plug:
-
-```bash
-./install.sh --vim-plug
-```
-
-If vim-plug is already installed, the installer will leave the existing installation unchanged.
-
-Without this option:
-
-```bash
-./install.sh
-```
-
-only the dotfiles are installed.
-
-## Installation Layout
-
-The installer copies the repository configuration files into:
+The configurations are installed under:
 
 ```text
 ~/.config/dotfiles/
 ```
 
-Resulting in:
+Symlinks are created for tmux and Vim:
 
 ```text
-~/.config/dotfiles/
-├── docker/
-│   └── aliases.sh
-├── git/
-│   └── aliases.sh
-├── helm/
-│   └── aliases.sh
-├── kubectl/
-│   └── aliases.sh
-├── tmux/
-│   └── .tmux.conf
-└── vim/
-    └── .vimrc
+~/.tmux.conf -> ~/.config/dotfiles/tmux/.tmux.conf
+~/.vimrc     -> ~/.config/dotfiles/vim/.vimrc
 ```
-
-This keeps the installed configurations in one centralized location.
 
 ## Shell Aliases
 
-Aliases are organized by tool:
+Aliases are grouped by tool:
 
 ```text
 docker/aliases.sh
 git/aliases.sh
 helm/aliases.sh
 kubectl/aliases.sh
-...
 ```
 
-During installation, the following block is automatically added to `~/.bashrc`:
+The installer adds the following block to `~/.bashrc`:
 
 ```bash
 # >>> dotfiles aliases >>>
@@ -132,55 +79,55 @@ done
 # <<< dotfiles aliases <<<
 ```
 
-This automatically loads every `aliases.sh` file under:
+This automatically loads every `aliases.sh` under `~/.config/dotfiles`.
+
+### Adding New Aliases
+
+Create a new alias group:
 
 ```text
-~/.config/dotfiles/*/aliases.sh
+terraform/
+└── aliases.sh
 ```
 
-Because aliases are discovered dynamically, new alias groups can be added without modifying `.bashrc`.
+Add it to the directory list in `install.sh`:
 
-For example:
-
-```text
-dotfiles/
-└── terraform/
-    └── aliases.sh
+```bash
+for dir in docker git helm kubectl terraform; do
+  ...
+done
 ```
 
-After adding the directory to the installer, the aliases will automatically be sourced by `.bashrc`.
+Then reinstall:
 
-vim-plug is optional and is not installed by default.
+```bash
+./install.sh
+source ~/.bashrc
+```
 
-Install it together with the dotfiles using:
+## Vim Plugins
+
+[vim-plug](https://github.com/junegunn/vim-plug) is optional and is not installed by default.
+
+Install it together with the dotfiles:
 
 ```bash
 ./install.sh --vim-plug
 ```
 
-It will be installed at:
+If vim-plug is already installed, it will be left unchanged.
 
-```text
-~/.vim/autoload/plug.vim
-```
-
-Vim plugins managed by vim-plug are stored under:
-
-```text
-~/.vim/plugged/
-```
-
-Plugins can be added between `plug#begin()` and `plug#end()`:
+Plugins are configured in `.vimrc`:
 
 ```vim
-call plug#begin(~/.vim/plugged)
+call plug#begin('~/.vim/plugged')
 
 Plug 'author/plugin'
 
 call plug#end()
 ```
 
-Then install configured plugins from Vim with:
+Install configured plugins from Vim with:
 
 ```vim
 :PlugInstall
@@ -188,60 +135,28 @@ Then install configured plugins from Vim with:
 
 ## Updating
 
-After changing files in this repository, run the installer again:
+After changing the repository, simply run:
 
 ```bash
 ./install.sh
 ```
 
-or, when vim-plug should also be installed if missing:
+Or install vim-plug as well if it is missing:
 
 ```bash
 ./install.sh --vim-plug
 ```
 
-The installer overwrites the installed configuration files with the versions from the repository.
+The installer can be run multiple times safely:
 
-The tmux and Vim symlinks are recreated safely using:
-
-```bash
-ln -sf
-```
-
-The `.bashrc` aliases block is only added if it does not already exist, so running the installer multiple times does not duplicate it.
-
-## Adding New Aliases
-
-Create a new directory containing an `aliases.sh` file.
-
-For example:
-
-```text
-terraform/
-└── aliases.sh
-```
-
-Add the directory to the installer:
-
-```bash
-for dir in docker git helm kubectl terraform; do
-  mkdir -p "$DOTFILES_DIR/$dir"
-  cp "$REPO_DIR/$dir/aliases.sh" "$DOTFILES_DIR/$dir/aliases.sh"
-done
-```
-
-Run:
-
-```bash
-./install.sh
-source ~/.bashrc
-```
-
-The new aliases will then be loaded automatically.
+* Installed configuration files are updated from the repository.
+* tmux and Vim symlinks are recreated with `ln -sf`.
+* The `.bashrc` aliases block is not duplicated.
+* Existing vim-plug installations are preserved.
 
 ## Requirements
 
-Basic requirements:
+Required:
 
 ```text
 bash
@@ -250,19 +165,10 @@ ln
 grep
 ```
 
-For installing vim-plug:
+Optional:
 
 ```text
-curl
+curl    # installing vim-plug
+vim     # Vim configuration
+tmux    # tmux configuration
 ```
-
-Vim and tmux are only required if their respective configurations are going to be used.
-
-## Notes
-You need to run the fzf binary first to check if it already installed after PlugInstall in Vim.
-```
-whereis fzf
-fzf --version
-```
-If don't see any, check the `~/.vim/plugged/fzf` to run the install script then apply the `install.sh` again.
-
