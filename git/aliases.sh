@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 
 # Config
-git config --global merge.tool vimdiff3
+git config --global merge.tool vimdiff
+git config --global mergetool.vimdiff.layout "LOCAL,BASE,REMOTE / MERGED"
 git config --global mergetool.prompt false
 
 # Basic shortcuts
