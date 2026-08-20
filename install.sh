@@ -69,10 +69,6 @@ for file in "$HOME"/.config/dotfiles/*/aliases.sh; do
   [ -r "$file" ] && source "$file"
 done
 
-# fzf integration
-export PATH="$HOME/.vim/plugged/fzf/bin:$PATH"
-source ~/.vim/plugged/fzf/shell/key-bindings.bash
-
 # <<< dotfiles aliases <<<
 
 EOF
