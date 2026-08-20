@@ -69,9 +69,6 @@ set relativenumber
 " Also show the absolute line number for the current line.
 set number
 
-" Colorscheme
-colorscheme desert
-
 " =============================================================================
 " History
 " =============================================================================
@@ -134,6 +131,10 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
 		" Plug 'author/plugin-name'
 		Plug 'junegunn/fzf'
 		Plug 'junegunn/fzf.vim'
+		Plug 'NLKNguyen/papercolor-theme'
 
 	call plug#end()
 endif
+
+set background=dark
+colorscheme PaperColor
