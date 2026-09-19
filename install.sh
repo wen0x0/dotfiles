@@ -36,10 +36,10 @@ install_bash_configs() {
 
   for file in "$source_dir"/*.sh; do
     [[ -f "$file" ]] || continue
-
     cp "$file" "$target_dir/"
-    printf 'Installed Bash config: %s\n' "$(basename "$file")"
   done
+
+  printf 'Installed Bash config: %s\n' "$(basename "$file")"
 }
 
 install_tmux_config() {
@@ -111,11 +111,7 @@ for file in "\$HOME/.config/dotfiles/bash"/*.sh; do
   [[ -r "\$file" ]] && source "\$file"
 done
 
-<<<<<<< HEAD
-# <<< dotfiles aliases <<<
-=======
 $block_end
->>>>>>> cfbc34e (feat: add some bash config)
 
 EOF
 
