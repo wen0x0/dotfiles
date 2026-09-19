@@ -10,18 +10,18 @@ INSTALL_VIM_PLUG=false
 
 for arg in "$@"; do
   case "$arg" in
-    --vim-plug)
+    -v|--vim-plug)
       INSTALL_VIM_PLUG=true
       ;;
 
     -h|--help)
-      printf 'Usage: %s [--vim-plug]\n' "$0"
+      printf 'Usage: %s [-v|--vim-plug]\n' "$0"
       exit 0
       ;;
 
     *)
       printf 'Unknown option: %s\n' "$arg" >&2
-      printf 'Usage: %s [--vim-plug]\n' "$0" >&2
+      printf 'Usage: %s [-v|--vim-plug]\n' "$0" >&2
       exit 1
       ;;
   esac
@@ -92,6 +92,31 @@ install_vim_plug() {
   printf 'Installed vim-plug.\n'
 }
 
+install_vim_plugins() {
+  local vimrc="$HOME/.vimrc"
+
+  if ! command -v vim >/dev/null 2>&1; then
+    printf 'Error: vim is not installed.\n' >&2
+    exit 1
+  fi
+
+  if [[ ! -f "$vimrc" ]]; then
+    printf 'Skipping Vim plugins: .vimrc not found.\n'
+    return 0
+  fi
+
+  if ! grep -qE '^[[:space:]]*Plug[[:space:]]' "$vimrc"; then
+    printf 'No Vim plugins found in .vimrc.\n'
+    return 0
+  fi
+
+  printf 'Installing Vim plugins...\n'
+
+  vim +'PlugInstall --sync' +qall
+
+  printf 'Installed Vim plugins.\n'
+}
+
 configure_bashrc() {
   local block_start="# >>> dotfiles bash >>>"
   local block_end="# <<< dotfiles bash <<<"
@@ -127,12 +152,13 @@ main() {
 
   if [[ "$INSTALL_VIM_PLUG" == true ]]; then
     install_vim_plug
+		install_vim_plugins
   fi
 
   configure_bashrc
 
   printf '\nDotfiles installed successfully.\n'
-  printf 'Run: source ~/.bashrc\n'
+  printf "Run:\nsource ${BASHRC}\n"
 }
 
 main "$@"
