@@ -117,6 +117,36 @@ install_vim_plugins() {
   printf 'Installed Vim plugins.\n'
 }
 
+configure_fzf() {
+  local block_start="# >>> dotfiles fzf >>>"
+  local block_end="# <<< dotfiles fzf <<<"
+
+  if grep -qF "$block_start" "$BASHRC"; then
+    printf 'fzf is already configured.\n'
+    return 0
+  fi
+
+  cat >> "$BASHRC" <<EOF
+
+$block_start
+
+if [[ -x "\$HOME/.vim/plugged/fzf/bin/fzf" ]]; then
+  export PATH="\$HOME/.vim/plugged/fzf/bin:\$PATH"
+
+  [[ -r "\$HOME/.vim/plugged/fzf/shell/key-bindings.bash" ]] &&
+    source "\$HOME/.vim/plugged/fzf/shell/key-bindings.bash"
+
+  [[ -r "\$HOME/.vim/plugged/fzf/shell/completion.bash" ]] &&
+    source "\$HOME/.vim/plugged/fzf/shell/completion.bash"
+fi
+
+$block_end
+
+EOF
+
+  printf 'Configured fzf.\n'
+}
+
 configure_bashrc() {
   local block_start="# >>> dotfiles bash >>>"
   local block_end="# <<< dotfiles bash <<<"
@@ -157,8 +187,12 @@ main() {
 
   configure_bashrc
 
+  if [[ "$INSTALL_VIM_PLUG" == true ]]; then
+		configure_fzf
+	fi
+
   printf '\nDotfiles installed successfully.\n'
-  printf "Run:\nsource ${BASHRC}\n"
+  printf "Run:\n source ${BASHRC}\n"
 }
 
 main "$@"
