@@ -1,4 +1,4 @@
-#!/usr/bin/env bash 
+#!/usr/bin/env bash
 
 # Debian/Ubuntu chroot name
 if [[ -z ${debian_chroot:-} && -r /etc/debian_chroot ]]; then
