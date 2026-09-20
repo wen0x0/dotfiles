@@ -74,7 +74,6 @@ __git_branch() {
 # Save the previous command's exit code
 __update_prompt_status() {
   local exit_code=$?
-
 	printf -v exit_c '%d' "$exit_code"
 }
 
@@ -84,8 +83,6 @@ PROMPT_COMMAND=(
   "${PROMPT_COMMAND[@]}"
 )
 
-PS1=''
-
 # Terminal title
 case $TERM in
   xterm*|rxvt*)
@@ -94,8 +91,10 @@ case $TERM in
 esac
 
 # Main prompt
+PS1=''
+
 PS1+="[${C_CYAN}"'\D{%H:%M:%S}'"${C_RESET}"'] '
 PS1+="${C_BRIGHT_GREEN}"'@\u'"${C_RESET}"' '
 PS1+="${C_BRIGHT_YELLOW}"'$(\__git_branch)'"${C_RESET}"
-PS1+="${C_BLUE}"'\w'"${C_RESET}"''
-PS1+="\n<""${C_BRIGHT_YELLOW}${exit_c}""${C_RESET}""> "
+PS1+="${C_BLUE}"'\w'"${C_RESET}"
+PS1+="\n<${C_BRIGHT_YELLOW}"'${exit_c}'"${C_RESET}> "
