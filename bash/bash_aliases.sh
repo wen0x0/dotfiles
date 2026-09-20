@@ -12,4 +12,23 @@ fi
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
+alias t='type'
 
+# Navigation
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+
+# Show PATH line by line
+path() {
+  tr ':' '\n' <<< "$PATH"
+}
+
+# Find files/directories
+ff() {
+  find . -type f -iname "*${1:-}*"
+}
+
+fd() {
+  find . -type d -iname "*${1:-}*"
+}

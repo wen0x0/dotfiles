@@ -27,7 +27,7 @@ alias gsw='git switch'
 
 # Logs
 alias gl='git log'
-alias gla='git log --oneline --graph --decorate --all'
+alias glo='git log --oneline --graph --decorate --all'
 
 # Remote
 alias gps='git push'
